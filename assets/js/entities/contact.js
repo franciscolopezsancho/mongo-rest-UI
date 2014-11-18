@@ -1,19 +1,23 @@
 ContactManager.module("Entities", function(Entities, ContactManager, Backbone, Marionette, $, _){
-  Entities.Contact = Backbone.Model.extend({});
+  Entities.Contact = Backbone.Model.extend({
+   // urlRoot: "http://54.77.180.70:3000/datasift/raw"
+    url : function() {
+     //Important! It's got to know where to send its REST calls. 
+     //In this case, POST to '/donuts' and PUT to '/donuts/:id'
+    return this.id ? 'http://54.77.180.70:3000/ml/supervisingUI/' + this.id : 'http://54.77.180.70:3000/ml/supervisingUI'; 
+  } 
+  });
 
   Entities.ContactCollection = Backbone.Collection.extend({
     model: Entities.Contact,
-    comparator: "firstName"
+    url: "http://54.77.180.70:3000/ml/supervisingUI?limit=2"
   });
 
   var contacts;
 
   var initializeContacts = function(){
-    contacts = new Entities.ContactCollection([
-      { id: 1, firstName: "Alice", lastName: "Arten", phoneNumber: "555-0184" },
-      { id: 2, firstName: "Bob", lastName: "Brigham", phoneNumber: "555-0163" },
-      { id: 3, firstName: "Charlie", lastName: "Campbell", phoneNumber: "555-0129" }
-    ]);
+    contacts = new Entities.ContactCollection();
+    contacts.fetch();
   };
 
   var API = {

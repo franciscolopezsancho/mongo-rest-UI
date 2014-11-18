@@ -22,7 +22,12 @@
     </div>
 
     <script type="text/template" id="contact-list-item">
-      <p><%- firstName %> <%- lastName %></p>
+      <p><%- content %> | <%- artist %> | <%- track %> <td>
+ <button class="btn btn-small js-delete">
+ <i class="icon-add"></i>
+ Delete
+ </button>
+ </td></p>
     </script>
 
     <script src="./assets/js/vendor/jquery.js"></script>
