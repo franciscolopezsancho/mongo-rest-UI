@@ -1,48 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Marionette Contact Manager</title>
-    <link href="./assets/css/bootstrap.css" rel="stylesheet">
-    <link href="./assets/css/application.css" rel="stylesheet">
-  </head>
+<head>
+  <meta charset="utf-8">
+  <title>Marionette Contact Manager</title>
+  <link href="./assets/css/bootstrap.css" rel="stylesheet">
+  <link href="./assets/css/application.css" rel="stylesheet">
+</head>
 
-  <body>
+<body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <span class="brand">Contact manager</span>
-        </div>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <span class="brand">Contact manager</span>
       </div>
     </div>
+  </div>
 
-    <div id="main-region" class="container">
-      <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
-    </div>
+  <div id="main-region" class="container">
+    <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
+  </div>
 
-    <script type="text/template" id="contact-list-item">
-      <p><%- content %> | <%- artist %> | <%- track %> <td>
- <button class="btn btn-small js-delete">
- <i class="icon-add"></i>
- Delete
- </button>
- </td></p>
-    </script>
+  <script type="text/template" id="contact-list">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </script>
 
-    <script src="./assets/js/vendor/jquery.js"></script>
-    <script src="./assets/js/vendor/json2.js"></script>
-    <script src="./assets/js/vendor/underscore.js"></script>
-    <script src="./assets/js/vendor/backbone.js"></script>
-    <script src="./assets/js/vendor/backbone.marionette.js"></script>
+  <script type="text/template" id="contact-list-item">
+    <td><%- content %></td>
+    <td><%- track %></td>
+    <td>
+      <a href="#" class="btn btn-small js-show">
+        <i class="icon-eye-open"></i>
+        Show
+      </a>
+      <button class="btn btn-small js-delete">
+        <i class="icon-remove"></i>
+        Delete
+      </button>
+    </td>
+  </script>
 
-    <script src="./assets/js/app.js"></script>
-    <script src="./assets/js/entities/contact.js"></script>
-    <script src="./assets/js/apps/contacts/list/list_view.js"></script>
-    <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
 
-    <script type="text/javascript">
+
+  <script type="text/template" id="contact-view">
+    <h1><%- content %> <%- track %></h1>
+    <p><strong>Phone number:</strong> <%- artist %></p>
+    <a href="#contacts/<%= id %>/edit" class="btn btn-small js-edit">
+     <i class="icon-pencil"></i>
+     Edit this contact
+   </a>
+ </script>
+ <script type="text/template" id="contact-view">
+  <h1><%= content %> | <%= track %> | <%= artist %></h1>
+  <a href="#contacts/<%= id %>/edit" class="btn btn-small js-edit">
+   <i class="icon-pencil"></i>
+   Edit this contact
+ </a>
+</script>
+<script type="text/template" id="contact-form">
+  <h1>Edit <%= content %> | <%= track %> </h1>
+  <form>
+    <div class="control-group">
+      <label for="contact-firstName" class="control-label">
+        First name:</label>
+        <input id="contact-firstName" name="content"
+        type="text" value="<%= content %>"/>
+      </div>
+      <div class="control-group">
+       <label for="contact-lastName" class="control-label">
+         Last name:</label>
+         <input id="contact-lastName" name="track"
+         type="text" value="<%= track %>"/>
+       </div>
+       <div class="control-group">
+         <label for="contact-phoneNumber" class="control-label">
+           Phone number:</label>
+           <input id="contact-phoneNumber" name="artist"
+           type="text" value="<%= artist %>"/>
+         </div>
+         <button class="btn js-submit">Save</button>
+       </form>
+     </script>
+     <script type="text/template" id="loading-view">
+       <h1><%= title %></h1>
+       <p><%= message %></p>
+       <div id="spinner"></div>
+     </script>
+
+     <script type="text/template" id="missing-contact-view">
+       <div class="alert alert-error">This contact doesn't exist !</div>
+     </script>
+     <script src="./assets/js/vendor/jquery.js"></script>
+     <script src="./assets/js/vendor/json2.js"></script>
+     <script src="./assets/js/vendor/underscore.js"></script>
+     <script src="./assets/js/vendor/backbone.js"></script>
+     <script src="./assets/js/vendor/backbone.marionette.js"></script>
+     <script src="./assets/js/vendor/backbone.syphon.min.js"></script>
+
+     <script src="./assets/js/app.js"></script>
+     <script src="./assets/js/entities/contact.js"></script>
+
+     <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+     <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
+     <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+     <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
+     <script src="./assets/js/common/views.js"></script>
+     <script type="text/javascript">
       ContactManager.start();
     </script>
   </body>
-</html>
+  </html>
