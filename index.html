@@ -12,7 +12,7 @@
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <span class="brand">Contact manager</span>
+        <span class="brand">Matching supervisor</span>
       </div>
     </div>
   </div>
@@ -24,9 +24,9 @@
   <script type="text/template" id="contact-list">
     <thead>
       <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
+        <th>Link</th>
+        <th>Track</th>
+        <th>Artist</th>
       </tr>
     </thead>
     <tbody>
@@ -34,8 +34,9 @@
   </script>
 
   <script type="text/template" id="contact-list-item">
-    <td><%- content %></td>
+    <td href="<%- link %>"><%- link %></td>
     <td><%- track %></td>
+    <td><%- artist %></td>
     <td>
       <a href="#" class="btn btn-small js-show">
         <i class="icon-eye-open"></i>
@@ -51,8 +52,22 @@
 
 
   <script type="text/template" id="contact-view">
-    <h1><%- content %> <%- track %></h1>
-    <p><strong>Phone number:</strong> <%- artist %></p>
+    
+    <p><strong>Content:</strong> <%- content %></p>
+    <p><strong>Social Interaction:</strong> <%- link %></p>
+    <p><strong>Tags</strong> <%- tags %></p>
+    <p><strong>Interaction Source:</strong> <%- type %></p>
+    <p><strong>Phone number:</strong> <%- content %></p>
+    <p><strong>Normalized_url:</strong> <%- normalized_url %></p>
+    <p><strong>Url:</strong> <%- url %></p>
+    <p><strong>Page titles:</strong> <%- title %></p>
+    <p><strong>Status:</strong> <%- status %></p>
+    <p><strong>Detail:</strong> <%- detail %></p>
+    <p><strong>Date:</strong> <%- date %></p>
+    <p><strong>Matches:</strong> <%- matched %></p>
+    <p><strong>Track:</strong> <%- track %></p>
+    <p><strong>Artist:</strong> <%- artist %></p>
+    <p><strong>supervised:</strong> <%- supervised %></p>
     <a href="#contacts/<%= id %>/edit" class="btn btn-small js-edit">
      <i class="icon-pencil"></i>
      Edit this contact
@@ -66,25 +81,31 @@
  </a>
 </script>
 <script type="text/template" id="contact-form">
-  <h1>Edit <%= content %> | <%= track %> </h1>
+  <h1>Edit  </h1>
   <form>
     <div class="control-group">
       <label for="contact-firstName" class="control-label">
-        First name:</label>
-        <input id="contact-firstName" name="content"
-        type="text" value="<%= content %>"/>
+        Track Name:</label>
+        <input id="contact-firstName" name="track"
+        type="text" value="<%= track %>"/>
       </div>
       <div class="control-group">
        <label for="contact-lastName" class="control-label">
-         Last name:</label>
+         Artist name:</label>
          <input id="contact-lastName" name="track"
-         type="text" value="<%= track %>"/>
+         type="text" value="<%= artist %>"/>
        </div>
        <div class="control-group">
-         <label for="contact-phoneNumber" class="control-label">
-           Phone number:</label>
-           <input id="contact-phoneNumber" name="artist"
-           type="text" value="<%= artist %>"/>
+         <label for="contact-phoneNumber" class="control-label ">
+           Matches :</label>
+           <input id="link-matched" class="js-matched"name="artist"
+           type="checkbox" value="<%= matched %>" <% if (matched) { %>checked="checked"<% } %>/>
+         </div>
+          <div class="control-group">
+         <label for="contact-phoneNumber" class="control-label  js-supervises">
+           Supervised :</label>
+           <input id="link-supervised" class="js-supervised" name="artist"
+           type="checkbox" value="<%= supervised %>" <% if (supervised) { %>checked="checked"<% } %>/>
          </div>
          <button class="btn js-submit">Save</button>
        </form>
