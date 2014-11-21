@@ -108,7 +108,9 @@
                         "track":"",
                         "artist":"",
                         "match":false,
-                        "supervised":false
+                        "supervised":false,
+                        "isInfringing":true,
+                        "infringingLocation":""
                 }
         }
 },

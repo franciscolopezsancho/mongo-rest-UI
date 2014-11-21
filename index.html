@@ -52,7 +52,7 @@
 
 
   <script type="text/template" id="contact-view">
-    
+
     <p><strong>Content:</strong> <%- content %></p>
     <p><strong>Social Interaction:</strong> <%- link %></p>
     <p><strong>Tags</strong> <%- tags %></p>
@@ -92,53 +92,70 @@
       <div class="control-group">
        <label for="contact-lastName" class="control-label">
          Artist name:</label>
-         <input id="contact-lastName" name="track"
+         <input id="contact-lastName" name="artist"
          type="text" value="<%= artist %>"/>
        </div>
        <div class="control-group">
          <label for="contact-phoneNumber" class="control-label ">
-           Matches :</label>
-           <input id="link-matched" class="js-matched"name="artist"
+           Matches :</label>  
+           <input id="link-matched" class="js-matched"name="matched"
            type="checkbox" value="<%= matched %>" <% if (matched) { %>checked="checked"<% } %>/>
          </div>
-          <div class="control-group">
-         <label for="contact-phoneNumber" class="control-label  js-supervises">
-           Supervised :</label>
-           <input id="link-supervised" class="js-supervised" name="artist"
-           type="checkbox" value="<%= supervised %>" <% if (supervised) { %>checked="checked"<% } %>/>
-         </div>
-         <button class="btn js-submit">Save</button>
-       </form>
-     </script>
-     <script type="text/template" id="loading-view">
-       <h1><%= title %></h1>
-       <p><%= message %></p>
-       <div id="spinner"></div>
-     </script>
+         <div class="control-group">
+           <label for="contact-phoneNumber" class="control-label  js-supervises">
+             Supervised :</label>
+             <input id="link-supervised" class="js-supervised" name="supervised"
+             type="checkbox" value="<%= supervised %>" <% if (supervised) { %>checked="checked"<% } %>/>
+           </div>
+           <div class="control-group">
+           <label for="contact-phoneNumber" class="control-label  js-supervises">
+             Is Infringing :</label>
+             <input id="link-infringing" class="js-infringing" name="isInfringing"
+             type="checkbox" value="<%= isInfringing %>" <% if (isInfringing) { %>checked="checked"<% } %>/>
+           </div>           
+          <div class="control-group">        
+          <label for="contact-phoneNumber" class="control-label  js-infringingLocation">
+           Infringing Location</label>
+           <select name="infringingLocation">
+            <option value="content" <% if (infringingLocation == "content") { %>selected="selected"<% } %>>content</option>
+            <option value="url" <% if (infringingLocation == "url") { %>selected="selected"<% } %>>url</option>
+            <option value="normalized_url" <% if (infringingLocation == "normalized_url") { %>selected="selected"<% } %>>normalized_url</option>
+            <option value="titles" <% if (infringingLocation == "titles") { %>selected="selected"<% } %>>page title</option>
+          </select>
+        </div>
 
-     <script type="text/template" id="missing-contact-view">
-       <div class="alert alert-error">This contact doesn't exist !</div>
-     </script>
-     <script src="./assets/js/vendor/jquery.js"></script>
-     <script src="./assets/js/vendor/json2.js"></script>
-     <script src="./assets/js/vendor/underscore.js"></script>
-     <script src="./assets/js/vendor/backbone.js"></script>
-     <script src="./assets/js/vendor/backbone.marionette.js"></script>
-     <script src="./assets/js/vendor/backbone.syphon.min.js"></script>
-
-     <script src="./assets/js/app.js"></script>
-     <script src="./assets/js/entities/contact.js"></script>
-
-     <script src="./assets/js/apps/contacts/contacts_app.js"></script>
-     <script src="./assets/js/apps/contacts/list/list_view.js"></script>
-     <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
-     <script src="./assets/js/apps/contacts/show/show_view.js"></script>
-     <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
-     <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
-     <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
-     <script src="./assets/js/common/views.js"></script>
-     <script type="text/javascript">
-      ContactManager.start();
+        <button class="btn js-submit">Save</button>
+      </form>
     </script>
-  </body>
-  </html>
+    <script type="text/template" id="loading-view">
+     <h1><%= title %></h1>
+     <p><%= message %></p>
+     <div id="spinner"></div>
+   </script>
+
+   <script type="text/template" id="missing-contact-view">
+     <div class="alert alert-error">This contact doesn't exist !</div>
+   </script>
+   <script src="./assets/js/vendor/jquery.js"></script>
+   <script src="./assets/js/vendor/json2.js"></script>
+   <script src="./assets/js/vendor/underscore.js"></script>
+   <script src="./assets/js/vendor/backbone.js"></script>
+   <script src="./assets/js/vendor/backbone.marionette.js"></script>
+   <script src="./assets/js/vendor/backbone.syphon.js"></script>
+
+   <script src="./assets/js/app.js"></script>
+   <script src="./assets/js/entities/contact.js"></script>
+
+   <script src="./assets/js/apps/contacts/contacts_app.js"></script>
+   <script src="./assets/js/apps/contacts/list/list_view.js"></script>
+   <script src="./assets/js/apps/contacts/list/list_controller.js"></script>
+   <script src="./assets/js/apps/contacts/show/show_view.js"></script>
+   <script src="./assets/js/apps/contacts/show/show_controller.js"></script>
+   <script src="./assets/js/apps/contacts/edit/edit_view.js"></script>
+   <script src="./assets/js/apps/contacts/edit/edit_controller.js"></script>
+   <script src="./assets/js/common/views.js"></script>
+   <script type="text/javascript">
+    ContactManager.start();
+  </script>
+</body>
+</html>
