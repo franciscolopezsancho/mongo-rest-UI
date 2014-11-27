@@ -5,7 +5,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
     events: {
       "click": "highlightName",
-      "click td a.js-show": "showClicked",
+      "click button.js-show": "showClicked",
       "click button.js-delete": "deleteClicked"
     },
 
@@ -29,7 +29,14 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       this.$el.fadeOut(function(){
         Marionette.ItemView.prototype.remove.call(self);
       });
+    },
+    onBeforeRender: function(){
+    if(this.model.attributes.supervised){
+      this.$el.addClass("supervised");
     }
+  }
+    
+     
   });
 
   List.Contacts = Marionette.CompositeView.extend({
@@ -37,6 +44,13 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
     className: "table table-hover",
     template: "#contact-list",
     childView: List.Contact,
-    childViewContainer: "tbody"
+    childViewContainer: "tbody",
+    events: {      
+      "click button.js-reload": "reloadClicked"
+    },
+    reloadClicked: function(e){
+      e.stopPropagation();
+      window.location.reload
+    }
   });
 });

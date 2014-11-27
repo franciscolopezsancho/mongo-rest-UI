@@ -20,7 +20,20 @@ ContactManager.module('ContactsApp.Edit', function(Edit,
 						console.log("error");
 					}
 				});		
-				ContactManager.trigger("contact:show", model.get('id'));
+				//ContactManager.trigger("contacts:list");
+			});
+			contactView.on("form:save", function(data){
+				//before updating will need to get rid of _id and ok.	
+
+				model.save(data, {
+					success: function (model, response) {
+						console.log("success");
+					},
+					error: function (model, response) {
+						console.log("error");
+					}
+				});	
+				ContactManager.trigger("contacts:list");	
 			});
 
 			ContactManager.mainRegion.show(contactView);

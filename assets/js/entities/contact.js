@@ -61,6 +61,9 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     clone.unset("date","silent")
     //clone.unset("id","silent")
     clone.unset("content","silent")
+     clone.unset("isInfringing","silent")
+      clone.unset("infringingCause","silent")
+       clone.unset("infringingLocation","silent")
 
     return Backbone.sync.apply(this, [method, clone, options]);
   },
@@ -69,15 +72,17 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
    url : function() {
      //Important! It's got to know where to send its REST calls. 
      //In this case, POST to '/donuts' and PUT to '/donuts/:id'
-     return this.id ? "http://54.77.180.70:3000/ml/supervisingUI/" + this.id : "http://54.77.180.70:3000/ml/supervisingUI"; 
-   } 
+     return this.id ? "http://54.77.180.70:3000/ml/rawTest/" + this.id : "http://54.77.180.70:3000/ml/rawTest"; 
+   }
+
+
  });
 
 
 
 Entities.ContactCollection = Backbone.Collection.extend({
   model: Entities.Contact,
-  url: "http://54.77.180.70:3000/ml/supervisingUI?limit=100"
+  url: "http://54.77.180.70:3000/ml/rawTest?limit=100"
 });
 
 var contacts;

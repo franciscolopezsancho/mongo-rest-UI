@@ -9,8 +9,10 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
 
       contactsListView.on("childview:contact:show", function(childView, model){
         ContactManager.navigate("contacts/" + model.get('id'));
-        ContactManager.ContactsApp.Show.Controller.showContact(model);
+        ContactManager.ContactsApp.Edit.Controller.editContact(model);
       });
+
+     
 
       contactsListView.on("childview:contact:delete", function(childView, model){
         model.destroy();

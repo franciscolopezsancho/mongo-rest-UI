@@ -6,8 +6,13 @@ ContactManager.module('ContactsApp.Edit', function(Edit,
 		events: {
 			'click button.js-submit': 'submitClicked',
 			'click input.js-supervised':'supervises',
-			'click input.js-matched':'matches'
+			'click input.js-matched':'matches',
+			'click input.js-infringing':'infringes',
+			'click button.js-back':'back',
+			'click select.editorDropdown':'located',
+			'input input.js-input-text':'wrote'
 		},
+		 
 		submitClicked: function(e){
 			e.preventDefault();
 			console.log("edit contact");
@@ -25,10 +30,17 @@ ContactManager.module('ContactsApp.Edit', function(Edit,
 				$("#link-supervised").prop("checked","checked");
 				this.model.set("supervised",true)
 			}
-			this.render();
-			console.log($("#link-supervised").attr("checked"));
-
-			
+			this.save();
+			this.render();			
+		},
+		located: function(e){
+			e.preventDefault();	
+			this.model.set("infringingLocation",$(".editorDropdown option:selected").val())
+			this.save();						
+		},
+		wrote:function(e){
+			e.preventDefault();	
+			this.save();	
 		},
 		matches: function(e){
 			e.preventDefault();	
@@ -39,19 +51,40 @@ ContactManager.module('ContactsApp.Edit', function(Edit,
 				$("#link-matched").prop("checked","checked");
 				this.model.set("matched",true)
 			}
+			this.save();
 			this.render();
-			console.log($("#link-matched").attr("checked"));			
+		},		
+		infringes: function(e){
+			e.preventDefault();	
+			if($("#link-infringing").attr("checked") == "checked"){
+				$("#link-infringing").removeAttr("checked");
+				this.model.set("isInfringing",false)
+			}else{
+				$("#link-infringing").prop("checked","checked");
+				this.model.set("isInfringing",true)
+			}
+			this.save();
+			this.render();			
+		},
+		back: function(id){
+			window.history.back();
 		},
 
-		check: function(el){
-			if($(el).attr("checked") == "checked"){
+		check: function(event,viewLocation,modelAttribute){
+			event.preventDefault();	
+			if($(viewLocation).attr("checked") == "checked"){
 				$("#link-matches").removeAttr("checked");
-				this.model.set("matches",false)
+				this.model.set(modelAttribute,false)
 			}else{
-				$(el).prop("checked","checked");
-				this.model.set("matches",true)
+				$(viewLocation).prop("checked","checked");
+				this.model.set(modelAttribute,true)
 			}
-			this.render();
+			this.save();
+			this.render();	
+		},
+		save: function(e){
+			var data = Backbone.Syphon.serialize(this);
+			this.trigger("form:submit", data);
 		}
 	});
 });
