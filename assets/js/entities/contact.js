@@ -82,7 +82,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
 Entities.ContactCollection = Backbone.Collection.extend({
   model: Entities.Contact,
-  url: "http://54.77.180.70:3000/ml/rawTest?limit=100"
+  url: "http://54.77.180.70:3000/ml/rawTest?limit=10&query={\"$or\":[{\"ifpi.process.supervised\":{\"$exists\":false}},{\"ifpi.process.supervised\":false}]}"
 });
 
 var contacts;
