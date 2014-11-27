@@ -49,8 +49,7 @@ ContactManager.module("ContactsApp.List", function(List, ContactManager, Backbon
       "click button.js-reload": "reloadClicked"
     },
     reloadClicked: function(e){
-      e.stopPropagation();
-      window.location.reload
+      this.collection.fetch()
     }
   });
 });
