@@ -17,7 +17,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
       response.track=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.track
       response.artist=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.artist
       response.supervised=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.supervised
-      response.isInfringing=response.ifpi.status == "infringing" ? true : (response.ifpi.manual == undefined ? "" : response.ifpi.manual.isInfringing)
+      response.isInfringing=response.ifpi.process.status == "infringing" ? true : (response.ifpi.manual == undefined ? "" : response.ifpi.manual.isInfringing)
       response.infringingCause=  response.ifpi.infringingCause != undefined ?  response.ifpi.infringing.cause : ""
       response.infringingLocation=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.infringingLocation
     }
@@ -83,7 +83,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
    url : function() {
      //Important! It's got to know where to send its REST calls. 
      //In this case, POST to '/donuts' and PUT to '/donuts/:id'
-     return this.id ? "http://54.77.180.70:3000/ml/rawTest/" + this.id : "http://54.77.180.70:3000/ml/rawTest"; 
+     return this.id ? "http://54.77.180.70:3000/ml/raw/" + this.id : "http://54.77.180.70:3000/ml/raw"; 
    }
 
 
@@ -93,7 +93,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
 Entities.ContactCollection = Backbone.Collection.extend({
   model: Entities.Contact,
-  url: "http://54.77.180.70:3000/ml/rawTest?limit=10&query={\"$or\":[{\"ifpi.manual.supervised\":{\"$exists\":false}},{\"ifpi.manual.supervised\":false}]}"
+  url: "http://54.77.180.70:3000/ml/raw?limit=10&query={\"$and\":[{\"$or\":[{\"ifpi.process.status\":\"unmatched\"},{\"ifpi.process.status\":\"confused\"},{\"ifpi.process.status\":\"infringing\"}]},{\"$or\":[{\"ifpi.manual.supervised\":{\"$exists\":false}},{\"ifpi.manual.supervised\":false}]}]}"
 });
 
 var contacts;
