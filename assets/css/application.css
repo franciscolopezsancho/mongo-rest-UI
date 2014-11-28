@@ -33,3 +33,12 @@ margin-top:10px;
 tr.supervised {
 	text-decoration: line-through;
 }
+span.checkbox {
+  width:275px;
+}
+span.input-text{
+  width:120px;
+}
+input.form-control.js-input-text {
+  width:350px;
+}

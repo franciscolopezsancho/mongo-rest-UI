@@ -13,18 +13,28 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
       response.status=response.ifpi.process.status
       response.detail=response.ifpi.process.detail
       response.date=response.ifpi.process.date
-      response.matched=response.ifpi.process.match
-      response.track=response.ifpi.process.track
-      response.artist=response.ifpi.process.artist
-      response.supervised=response.ifpi.process.supervised
-      response.isInfringing=response.ifpi.status == "infringing" ? true : ((response.ifpi.process.isInfringing != undefined) ? response.ifpi.process.isInfringing : false)
+      response.matched=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.match
+      response.track=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.track
+      response.artist=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.artist
+      response.supervised=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.supervised
+      response.isInfringing=response.ifpi.status == "infringing" ? true : (response.ifpi.manual == undefined ? "" : response.ifpi.manual.isInfringing)
       response.infringingCause=  response.ifpi.infringingCause != undefined ?  response.ifpi.infringing.cause : ""
-      response.infringingLocation=(response.ifpi.process.infringingLocation != undefined) ? response.ifpi.process.infringingLocation : ""
+      response.infringingLocation=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.infringingLocation
     }
     return response;
   },
   
   sync: function(method, model, options) {
+
+     manual = {
+       track: "",
+       artist: "",
+       supervised: "",
+       isInfringing: "",
+       infringingLocation: "",
+       lastUpdate: ""
+     } 
+
     if (model.bundle) {
       _.defaults(options || (options = {}), {attrs: model.bundle()});
     }
@@ -38,12 +48,13 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     model.attributes.ifpi.process.status=model.attributes.status
     model.attributes.ifpi.process.detail=model.attributes.detail
     model.attributes.ifpi.process.date=model.attributes.date
-    model.attributes.ifpi.process.match=model.attributes.matched
-    model.attributes.ifpi.process.track=model.attributes.track
-    model.attributes.ifpi.process.artist=model.attributes.artist
-    model.attributes.ifpi.process.supervised=model.attributes.supervised
-    model.attributes.ifpi.process.isInfringing=model.attributes.isInfringing
-    model.attributes.ifpi.process.infringingLocation=model.attributes.infringingLocation
+    if(model.attributes.ifpi.manual == undefined) model.attributes.ifpi.manual = manual
+    model.attributes.ifpi.manual.track=model.attributes.track
+    model.attributes.ifpi.manual.artist=model.attributes.artist
+    model.attributes.ifpi.manual.supervised=model.attributes.supervised
+    model.attributes.ifpi.manual.isInfringing=model.attributes.isInfringing
+    model.attributes.ifpi.manual.infringingLocation=model.attributes.infringingLocation
+    model.attributes.ifpi.manual.lastUpdate=new Date()
     var clone = model.clone()
     //model.unset("content","silent")
     clone.unset("matched","silent")
@@ -82,7 +93,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
 Entities.ContactCollection = Backbone.Collection.extend({
   model: Entities.Contact,
-  url: "http://54.77.180.70:3000/ml/rawTest?limit=10&query={\"$or\":[{\"ifpi.process.supervised\":{\"$exists\":false}},{\"ifpi.process.supervised\":false}]}"
+  url: "http://54.77.180.70:3000/ml/rawTest?limit=10&query={\"$or\":[{\"ifpi.manual.supervised\":{\"$exists\":false}},{\"ifpi.manual.supervised\":false}]}"
 });
 
 var contacts;
@@ -93,6 +104,7 @@ var initializeContacts = function(){
 
   });
 }
+
 
 var API = {
   getContactEntities: function(){

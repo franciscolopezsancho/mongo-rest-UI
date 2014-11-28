@@ -167,20 +167,20 @@
               <div class="panel-heading">IFPI Manual supervision fields</div>
               <div class="panel-body">
                 <div class="input-group editorText">
-                 <span class="input-group-addon">Track Name:</span>
+                 <span class="input-group-addon input-text">Track Name:</span>
                  <input id="contact-firstName" class="form-control js-input-text" name="track"
                  type="text" value="<%= track %>"/>
                </div>
                <div class="input-group editorText">
-                 <span for="contact-lastName" class="input-group-addon">
+                 <span for="contact-lastName" class="input-group-addon input-text">
                    Artist name:</span>
                    <input id="contact-lastName" name="artist" class="form-control js-input-text"
                    type="text" value="<%= artist %>"/>
                  </div>
-                 <div class="input-group editorText">
-                   <span for="contact-phoneNumber" class="input-group-addon">
+                 <div class="input-group editorText js-matched">
+                   <span for="contact-phoneNumber" class="input-group-addon checkbox ">
                      Matches :</span>  
-                     <input id="link-matched" class=" js-matched editorCheckbox"name="matched"
+                     <input id="link-matched" class="  editorCheckbox"name="matched"
                      type="checkbox" value="<%= matched %>" <% if (matched) { %>checked="checked"<% } %>/>
                    </div>
                    <div class="input-group editorText">        
@@ -193,16 +193,16 @@
                       <option value="titles" <% if (infringingLocation == "titles") { %>selected="selected"<% } %>>page titles</option>
                     </select>
                   </div>
-                  <div class="input-group editorText">
-                   <span for="contact-phoneNumber" class="input-group-addon js-infringing">
+                  <div class="input-group editorText js-infringing">
+                   <span for="contact-phoneNumber" class="input-group-addon js-infringing checkbox">
                      Is Infringing :</span>
-                     <input id="link-infringing" class="js-infringing editorCheckbox" name="isInfringing"
+                     <input id="link-infringing" class=" editorCheckbox" name="isInfringing"
                      type="checkbox" value="<%= isInfringing %>" <% if (isInfringing) { %>checked="checked"<% } %>/>
                    </div>  
-                   <div class="input-group editorText">
-                     <span for="contact-phoneNumber" class="input-group-addon js-supervises">
+                   <div class="input-group editorText js-supervised">
+                     <span for="contact-phoneNumber" class="input-group-addon js-supervises checkbox">
                        Supervised :</span>
-                       <input id="link-supervised" class=" js-supervised editorCheckbox" name="supervised"
+                       <input id="link-supervised" class="  editorCheckbox" name="supervised"
                        type="checkbox" value="<%= supervised %>" <% if (supervised) { %>checked="checked"<% } %>/>
                      </div>
 
@@ -265,6 +265,8 @@
        <script src="./assets/js/vendor/backbone.marionette.js"></script>
        <script src="./assets/js/vendor/backbone.syphon.js"></script>
        <script src="./assets/js/vendor/bootstrap-select.js"></script>
+               <script src="./assets/js/vendor/deep-model.min.js"></script>
+
        <script>  $('.selectpicker').selectpicker({
         style: 'btn-info',
         size: 4
