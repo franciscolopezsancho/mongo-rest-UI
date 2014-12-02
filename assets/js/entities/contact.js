@@ -13,10 +13,10 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
       response.status=response.ifpi.process.status
       response.detail=response.ifpi.process.detail
       response.date=response.ifpi.process.date
-      response.matched=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.match
+      response.matched=(response.ifpi.manual == undefined) ? false : response.ifpi.manual.match
       response.track=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.track
       response.artist=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.artist
-      response.supervised=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.supervised
+      response.supervised=(response.ifpi.manual == undefined) ? false : response.ifpi.manual.supervised
       response.isInfringing=response.ifpi.process.status == "infringing" ? true : (response.ifpi.manual == undefined ? "" : response.ifpi.manual.isInfringing)
       response.infringingCause=  response.ifpi.infringingCause != undefined ?  response.ifpi.infringing.cause : ""
       response.infringingLocation=(response.ifpi.manual == undefined) ? "" : response.ifpi.manual.infringingLocation
@@ -49,6 +49,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
     model.attributes.ifpi.process.detail=model.attributes.detail
     model.attributes.ifpi.process.date=model.attributes.date
     if(model.attributes.ifpi.manual == undefined) model.attributes.ifpi.manual = manual
+    model.attributes.ifpi.manual.match=model.attributes.matched
     model.attributes.ifpi.manual.track=model.attributes.track
     model.attributes.ifpi.manual.artist=model.attributes.artist
     model.attributes.ifpi.manual.supervised=model.attributes.supervised
@@ -83,7 +84,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
    url : function() {
      //Important! It's got to know where to send its REST calls. 
      //In this case, POST to '/donuts' and PUT to '/donuts/:id'
-     return this.id ? "http://54.77.180.70:3000/ml/raw/" + this.id : "http://54.77.180.70:3000/ml/raw"; 
+     return this.id ? "http://54.77.180.70:3000/datasift/raw/" + this.id : "http://54.77.180.70:3000/datasift/raw"; 
    }
 
 
@@ -93,7 +94,7 @@ ContactManager.module("Entities", function(Entities, ContactManager, Backbone, M
 
 Entities.ContactCollection = Backbone.Collection.extend({
   model: Entities.Contact,
-  url: "http://54.77.180.70:3000/ml/raw?limit=10&query={\"$and\":[{\"$or\":[{\"ifpi.process.status\":\"unmatched\"},{\"ifpi.process.status\":\"confused\"},{\"ifpi.process.status\":\"infringing\"}]},{\"$or\":[{\"ifpi.manual.supervised\":{\"$exists\":false}},{\"ifpi.manual.supervised\":false}]}]}"
+  url: "http://54.77.180.70:3000/datasift/raw?limit=10&query={\"$and\":[{\"$or\":[{\"ifpi.process.status\":\"unmatched\"},{\"ifpi.process.status\":\"confused\"},{\"ifpi.process.status\":\"infringing\"}]},{\"$or\":[{\"ifpi.manual.supervised\":{\"$exists\":false}},{\"ifpi.manual.supervised\":false}]}]}&sort={_id:1}"
 });
 
 var contacts;

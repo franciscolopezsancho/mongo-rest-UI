@@ -33,10 +33,11 @@
     <thead>
       <tr>
         <th>Link</th>
+        <th>Tags</th>
         <th>Track</th>
         <th>Artist</th>
         <th>Matches</th>
-        <th>Is Infringing</th>
+        <th>Automated process status</th>
       </tr>
     </thead>
     <tbody>
@@ -54,10 +55,11 @@
 
     <table class="table table-hover">
       <td><a href="<%- link %>"><%- link %></a></td>
+      <td><%- tags %></td>
       <td><%- track %></td>
       <td><%- artist %></td>
       <td><%- matched %></td>
-      <td><%- isInfringing %></td>
+      <td><%- status %></td>
       <td>
         <button title="view details" type="button" class="btn btn-default js-show" aria-label="Left Align">
           <span class="glyphicon glyphicon-edit js-show" aria-hidden="true"></span>
@@ -110,10 +112,10 @@
                       <label for="contact-phoneNumber" class="input-group-addon   js-infringingLocation">
                        Infringing Location</label>
                        <select name="infringingLocation" class="editorDropdown  dropdown-toggle selectpicker btn-default">
-                        <option  value="content" <% if (infringingLocation == "content") { %>selected="selected"<% } %>>content</option>
-                        <option  value="url" <% if (infringingLocation == "url") { %>selected="selected"<% } %>>url</option>
-                        <option  value="normalized_url" <% if (infringingLocation == "normalized_url") { %>selected="selected"<% } %>>normalized_url</option>
-                        <option  value="titles" <% if (infringingLocation == "titles") { %>selected="selected"<% } %>>page title</option>
+                        <option  value="content" <% if ($.inArray("content",infringingLocation)) { %>selected="selected"<% } %>>content</option>
+                        <option  value="url" <% if ($.inArray("url",infringingLocation)) { %>selected="selected"<% } %>>url</option>
+                        <option  value="normalized_url" <% if ($.inArray("normalized_url",infringingLocation)) { %>selected="selected"<% } %>>normalized_url</option>
+                        <option  value="titles" <% if ($.inArray("titles",infringingLocationi)) { %>selected="selected"<% } %>>page title</option>
                       </select>
                     </div>
 
@@ -222,11 +224,11 @@
                   <div class="panel-body">
 
                   <p><img title="<%- type %>" src="http://www.google.com/s2/favicons?domain=<%-type%>.com"/></p> 
-                    <p><strong>Social Interaction:</strong> <a href="<%- link %>"> <%- link %></a></p>
+                    <p><strong>Social Interaction:</strong> <a class="link" href="<%- link %>"> <%- link %></a></p>
                     <p><strong>Tags</strong> <%- tags %></p>
                                   
-                    <p> <strong>Normalized_url:</strong> <a href="<%- normalized_url %>"><%- normalized_url %></a></p>
-                    <p><strong>Url:</strong><a href="<%- url %>"> <%- url %></a></p>
+                    <p> <strong>Normalized_url:</strong> <a class="link" href="<%- normalized_url %>"><%- normalized_url %></a></p>
+                    <p><strong>Url:</strong><a class="link" href="<%- url %>"> <%- url %></a></p>
                     <p><strong>Page titles:</strong> <%- title %></p>
                       <p><strong>Content:</strong> <%- content %></p>
                      <p><strong>id:</strong> <%- id %></p>         

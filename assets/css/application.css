@@ -42,3 +42,6 @@ span.input-text{
 input.form-control.js-input-text {
   width:350px;
 }
+a.link {
+word-wrap: break-word;
+}

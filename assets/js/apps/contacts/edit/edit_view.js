@@ -9,7 +9,6 @@ ContactManager.module('ContactsApp.Edit', function(Edit,
 			'click div.js-matched':'matches',
 			'click div.js-infringing':'infringes',
 			'click button.js-back':'back',
-			'mouseover button.js-back':'back',
 			'click select.editorDropdown':'located',
 			'input input.js-input-text':'wrote'
 		},
